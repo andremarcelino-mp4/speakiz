@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speak Easy - Quiz de Inglês</title>
+  <link href="https:
+  <link rel="stylesheet" href="https:
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+
+<div id="welcome-container" class="welcome-container">
+  <header class="welcome-header">
+    <img src="images/logo.png" alt="Logo Speak Easy" class="logo" />
+    <h1 class="logo-text">Speak Easy</h1>
+  </header>
+  <main class="welcome-content">
+    <h1 class="welcome-slogan">O jeito <span>fácil</span> de falar outra língua!</h1>
+    <p class="welcome-description">
+       Comece agora e transforme seu aprendizado!
+    </p>
+    <div class="welcome-buttons">
+      <button id="start-now" class="btn-primary">Comece Agora</button>
+      <button id="login" class="btn-secondary">Já Tenho uma Conta</button>
+    </div>
+  </main>
+</div>
+
+<div id="congratulations-container" style="display: none; text-align: center; padding: 20px;">
+  <h1 id="congratulations-title"></h1>
+  <p id="congratulations-message"></p>
+  <div id="error-list-container" style="margin-top: 20px;">
+    <h3>Erros e Respostas Corretas:</h3>
+    <ul id="error-list" style="list-style: none; padding: 0;"></ul>
+  </div>
+  <p id="motivational-message" style="display:none; font-weight:bold; margin-top:16px;"></p>
+  <button id="congratulations-back-button">Voltar ao Menu</button>
+</div>
+
+<div id="congratulations-container" style="display:none">
+  <p id="motivational-message" style="display:none; font-weight:bold; margin-top:16px;"></p>
+  <button id="backToMenuButton">Voltar ao Menu</button>
+</div>
+
+<div id="register-container" class="register-container animate-in" style="display:none;">
+  <header class="welcome-header">
+    <img src="images/logo.png" alt="Logo Speak Easy" class="logo" />
+    <h1 class="logo-text">Speak Easy</h1>
+  </header>
+  <h2>Cadastro</h2>
+  <input type="text" id="name" placeholder="Digite seu nome"/>
+  <input type="password" id="register-password" placeholder="Crie uma senha"/>
+  <button id="start-button">Cadastrar <i class="fas fa-arrow-right"></i></button>
+  <p>Já tem uma conta? <a href="#" id="go-login">Login</a></p>
+</div>
+
+<div id="login-container" class="login-container" style="display:none;">
+  <header class="welcome-header">
+    <img src="images/logo.png" alt="Logo Speak Easy" class="logo" />
+    <h1 class="logo-text">Speak Easy</h1>
+  </header>
+  <h2>Login</h2>
+  <input type="text" id="login-name" placeholder="Digite seu nome">
+  <input type="password" id="login-password" placeholder="Digite sua senha">
+  <button id="login-button">Entrar</button>
+  <p>Não tem uma conta? <a href="#" id="go-register">Cadastre-se</a></p>
+</div>
+
+<div id="menu-container" class="menu-container" style="display:none;">
+  <header class="welcome-header">
+    <img src="images/logo.png" alt="Logo Speak Easy" class="logo" />
+    <h1 class="logo-text"></h1>
+  </header>
+  <h1 class="title">Bem-vindo ao Speak Easy</h1>
+  <div id="user-info">
+    <img id="user-photo" src="images/default.png" alt="Foto de Perfil" class="user-photo"/>
+    <span id="user-name"></span>
+  </div>
+  <div class="tabs">
+    <button id="btnQuiz" class="tab-button animate-in"><i class="fas fa-question-circle"></i> Quiz</button>
+    <button id="btnPerguntas" class="tab-button animate-in"><i class="fas fa-edit"></i> Perguntas</button>
+    <button id="btnLibrary" class="tab-button animate-in"><i class="fas fa-book-open"></i> Biblioteca</button>
+    <button id="btnSpanish" class="tab-button animate-in spanish"><i class="fas fa-globe"></i> Español</button>
+    <button id="btnFrench" class="tab-button animate-in french"><i class="fas fa-globe"></i> Français</button>
+    <button id="btnExercises" class="tab-button animate-in"><i class="fas fa-dumbbell"></i> Exercícios</button>
+    <button id="btnRanking" class="tab-button animate-in"><i class="fas fa-trophy"></i> Ranking</button>
+  </div>
+  <button id="logout-button" class="restart-button">Sair</button>
+</div>
+
+<div id="spanish-menu-container" class="menu-container" style="display:none;">
+  <h2>Contenido en Español</h2>
+  <div class="tabs">
+    <button id="btnSpanishQuiz" class="tab-button animate-in spanish">
+       <i class="fas fa-question-circle"></i> Preguntas
+    </button>
+    <button id="btnSpanishLibrary" class="tab-button animate-in spanish">
+       <i class="fas fa-book-open"></i> Biblioteca
+    </button>
+  </div>
+  <button class="back-button" id="backButtonSpanishMenu">
+    <i class="fas fa-arrow-left"></i> Volver al Menú Principal
+  </button>
+</div>
+
+<div id="spanish-container" class="quiz-container" style="display:none;">
+  <button class="back-button" id="backButtonSpanish">
+    <i class="fas fa-arrow-left"></i> Volver al Menú
+  </button>
+  <div id="spanish-quiz">
+    <p id="spanish-question"></p>
+    <ul id="spanish-options"></ul>
+  </div>
+  <div class="score-container">
+    <p>Puntuación: <span id="spanish-score">0</span>/15</p>
+    <p>Tiempo: <span id="spanish-timer">0</span> s</p>
+  </div>
+</div>
+
+<div id="spanish-end-screen" class="end-screen" style="display:none;">
+  <button class="back-button" id="backButtonSpanishEndScreen">
+    <i class="fas fa-arrow-left"></i> Volver al Menú
+  </button>
+  <p id="spanish-final-message"></p>
+  <ul id="spanish-error-list"></ul>
+  <p id="motivational-message" style="display:none; font-weight:bold; margin-top:16px;"></p>
+  <button id="spanish-restart-button" class="restart-button">
+    <i class="fas fa-sync-alt"></i> Reiniciar Quiz
+  </button>
+  <button id="spanish-menu-button" class="restart-button">
+    <i class="fas fa-home"></i> Menú Principal
+  </button>
+</div>
+
+<div id="spanish-library-container" class="library-container" style="display:none;">
+  <button class="back-button" id="backButtonSpanishLibrary">
+    <i class="fas fa-arrow-left"></i> Volver al Menú
+  </button>
+  <h2><i class="fas fa-book-open"></i> Biblioteca de Textos en Español</h2>
+  <div id="frases-basicas-es" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Frases Básicas</h3>
+    </div>
+    <div class="text-content">
+      <p class="spanish">Hola - Olá</p>
+      <p class="spanish">Adiós - Adeus</p>
+      <p class="spanish">Gracias - Obrigado</p>
+      <p class="spanish">Por favor - Por favor</p>
+      <p class="spanish">¿Cómo estás? - Como você está?</p>
+    </div>
+  </div>
+  <div id="verbos-importantes-es" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Verbos Importantes</h3>
+    </div>
+    <div class="text-content">
+      <p>Ejemplo: hablar, comer, vivir, estudiar, trabajar.</p>
+      <p class="spanish">Yo hablo español - Eu falo espanhol</p>
+      <p class="spanish">Ella come manzanas - Ela come maçãs</p>
+      <p class="spanish">Nosotros vivimos en México - Nós moramos no México</p>
+    </div>
+  </div>
+  <div id="preguntas-comunes-es" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Preguntas Comunes</h3>
+    </div>
+    <div class="text-content">
+      <p class="spanish">¿Dónde vives? - Onde você mora?</p>
+      <p class="spanish">¿Qué hora es? - Que horas são?</p>
+      <p class="spanish">¿Cuánto cuesta? - Quanto custa?</p>
+      <p class="spanish">¿Puedes ayudarme? - Você pode me ajudar?</p>
+      <p class="spanish">¿Cómo te llamas? - Qual é o seu nome?</p>
+    </div>
+  </div>
+  <div id="expresiones-idiomaticas-es" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Expresiones Idiomáticas</h3>
+    </div>
+    <div class="text-content">
+      <p class="spanish">Estar en las nubes - Estar nas nuvens</p>
+      <p class="spanish">Tener la sartén por el mango - Ter a faca e o queijo na mão</p>
+      <p class="spanish">Ser pan comido - Ser muito fácil</p>
+      <p class="spanish">Llover a cántaros - Chover muito</p>
+    </div>
+  </div>
+  <div id="preguntas-avanzadas-es" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Preguntas Avanzadas</h3>
+    </div>
+    <div class="text-content">
+      <p class="spanish">¿Qué opinas sobre el cambio climático? - O que você acha sobre a mudança climática?</p>
+      <p class="spanish">¿Cuál es tu libro favorito y por qué? - Qual é o seu livro favorito e por quê?</p>
+      <p class="spanish">¿Qué harías si ganaras la lotería? - O que você faria se ganhasse na loteria?</p>
+      <p class="spanish">¿Cómo describirías tu ciudad natal? - Como você descreveria sua cidade natal?</p>
+      <p class="spanish">¿Qué te motiva a aprender español? - O que te motiva a aprender espanhol?</p>
+    </div>
+  </div>
+  <div id="cultura-es" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Cultura Española</h3>
+    </div>
+    <div class="text-content">
+      <p class="spanish">La paella es un plato típico de España, originario de Valencia.</p>
+      <p class="spanish">El flamenco es un estilo de música y danza tradicional de Andalucía.</p>
+      <p class="spanish">La Sagrada Familia es una famosa basílica en Barcelona diseñada por Antoni Gaudí.</p>
+      <p class="spanish">El idioma español tiene más de 500 millones de hablantes en el mundo.</p>
+    </div>
+  </div>
+</div>
+
+<div id="french-menu-container" class="menu-container" style="display:none;">
+  <h2>Contenu en Français</h2>
+  <div class="tabs">
+    <button id="btnFrenchQuiz" class="tab-button animate-in french">
+       <i class="fas fa-question-circle"></i> Questions
+    </button>
+    <button id="btnFrenchLibrary" class="tab-button animate-in french">
+       <i class="fas fa-book-open"></i> Bibliothèque
+    </button>
+  </div>
+  <button class="back-button" id="backButtonFrenchMenu">
+    <i class="fas fa-arrow-left"></i> Retour au Menu Principal
+  </button>
+</div>
+
+<div id="french-container" class="quiz-container" style="display:none;">
+  <button class="back-button" id="backButtonFrench">
+    <i class="fas fa-arrow-left"></i> Retour au Menu
+  </button>
+  <div id="french-quiz">
+    <p id="french-question"></p>
+    <ul id="french-options"></ul>
+  </div>
+  <div class="score-container">
+    <p>Score : <span id="french-score">0</span>/15</p>
+    <p>Temps : <span id="french-timer">0</span> s</p>
+  </div>
+</div>
+
+<div id="french-end-screen" class="end-screen" style="display:none;">
+  <button class="back-button" id="backButtonFrenchEndScreen">
+    <i class="fas fa-arrow-left"></i> Retour au Menu
+  </button>
+  <p id="french-final-message"></p>
+  <ul id="french-error-list"></ul>
+  <p id="motivational-message" style="display:none; font-weight:bold; margin-top:16px;"></p>
+  <button id="french-restart-button" class="restart-button">
+    <i class="fas fa-sync-alt"></i> Réessayer
+  </button>
+  <button id="french-menu-button" class="restart-button">
+    <i class="fas fa-home"></i> Menu Principal
+  </button>
+</div>
+
+<div id="french-library-container" class="library-container" style="display:none;">
+  <button class="back-button" id="backButtonFrenchLibrary">
+    <i class="fas fa-arrow-left"></i> Retour au Menu
+  </button>
+  <h2><i class="fas fa-book-open"></i> Bibliothèque en Français</h2>
+  <div id="phrases-de-base-fr" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Phrases de Base 🌟</h3>
+    </div>
+    <div class="text-content">
+      <p class="french">Bonjour - Bom dia</p>
+      <p class="french">Bonsoir - Boa noite</p>
+      <p class="french">Merci - Obrigado</p>
+      <p class="french">S'il vous plaît - Por favor</p>
+      <p class="french">Comment ça va ? - Como vai você?</p>
+    </div>
+  </div>
+  <div id="verbes-importants-fr" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Verbes Importants 🏃‍♂️</h3>
+    </div>
+    <div class="text-content">
+      <p>Exemples de verbes importants :</p>
+      <p class="french">Parler - Falar</p>
+      <p class="french">Manger - Comer</p>
+      <p class="french">Vivre - Viver</p>
+      <p class="french">Étudier - Estudar</p>
+      <p class="french">Travailler - Trabalhar</p>
+    </div>
+  </div>
+  <div id="questions-courantes-fr" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Questions Courantes ❓</h3>
+    </div>
+    <div class="text-content">
+      <p class="french">Où habites-tu ? - Onde você mora?</p>
+      <p class="french">Quelle heure est-il ? - Que horas são?</p>
+      <p class="french">Combien ça coûte ? - Quanto custa?</p>
+      <p class="french">Peux-tu m'aider ? - Você pode me ajudar?</p>
+      <p class="french">Comment t'appelles-tu ? - Qual é o seu nome?</p>
+    </div>
+  </div>
+  <div id="expressions-idiomatiques-fr" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Expressions Idiomatiques 💡</h3>
+    </div>
+    <div class="text-content">
+      <p class="french">Être dans la lune 🌙 - Estar distraído</p>
+      <p class="french">Avoir le cœur sur la main ❤️ - Ser generoso</p>
+      <p class="french">Casser les pieds 🦶 - Irritar alguém</p>
+      <p class="french">Donner un coup de main 🤝 - Ajudar</p>
+      <p class="french">Faire la grasse matinée 🛌 - Dormir até tarde</p>
+    </div>
+  </div>
+  <div id="culture-fr" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Culture Française 🇫🇷</h3>
+    </div>
+    <div class="text-content">
+      <p class="french">La Tour Eiffel est un symbole emblématique de la France.</p>
+      <p class="french">La baguette est un pain traditionnel français.</p>
+      <p class="french">Le fromage est une partie importante de la cuisine française.</p>
+      <p class="french">Le Louvre est le musée le plus visité au monde.</p>
+      <p class="french">Le 14 juillet est la fête nationale de la France.</p>
+    </div>
+  </div>
+</div>
+
+<div id="quiz-container" class="quiz-container" style="display:none;">
+  <div id="quiz">
+    <p id="question"></p>
+    <ul id="options"></ul>
+  </div>
+  <div class="score-container">
+    <p>Pontuação: <span id="score">0</span>/15</p>
+    <p>Tempo: <span id="timer">0</span> s</p>
+  <div id="quiz-progress-bar-container" style="width: 100%; margin-bottom: 16px;">
+    <div id="quiz-progress-bar" style="height: 16px; background: #4caf50; width: 0%; border-radius: 8px; transition: width 0.3s;"></div>
+  </div>
+  </div>
+</div>
+
+<div id="perguntas-container" class="perguntas-container" style="display:none;">
+  <button class="back-button" id="backButtonPerguntas">
+    <i class="fas fa-arrow-left"></i> Voltar ao Menu
+  </button>
+  <h2><i class="fas fa-edit"></i> Escolha o Nível</h2>
+  <div class="level-buttons">
+    <button id="btnFacil" class="level-button">Fácil</button>
+    <button id="btnMedio" class="level-button">Médio</button>
+    <button id="btnDificil" class="level-button">Difícil</button>
+  </div>
+</div>
+
+<div id="perguntas-quiz-container" class="quiz-container" style="display:none;">
+  <button class="back-button" id="backButtonPerguntasQuiz">
+    <i class="fas fa-arrow-left"></i> Voltar ao Menu
+  </button>
+  <div id="perguntas-quiz">
+    <p id="perguntas-question"></p>
+    <ul id="perguntas-options"></ul>
+  </div>
+  <div class="score-container">
+    <p>Pontuação: <span id="perguntas-score">0</span>/10</p>
+    <p>Tempo: <span id="perguntas-timer">0</span> s</p>
+  </div>
+</div>
+
+<div id="library-container" class="library-container" style="display:none;">
+  <button class="back-button" id="backButtonLibrary">
+    <i class="fas fa-arrow-left"></i> Voltar ao Menu
+  </button>
+  <h2><i class="fas fa-book-open"></i> Biblioteca de Textos</h2>
+  <div id="frases-basicas" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Frases Básicas 🌟</h3>
+    </div>
+    <div class="text-content">
+      <p class="english">I like to study English 📚</p>
+      <p class="portuguese">Eu gosto de estudar inglês 📚</p>
+      <p class="english">I am a student 🎓</p>
+      <p class="portuguese">Eu sou estudante 🎓</p>
+    </div>
+  </div>
+  <div id="verbos" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Verbos de Ação 🏃‍♂️</h3>
+    </div>
+    <div class="text-content">
+      <p>Verbos são palavras de ação. Por exemplo, ler "read" 📖, escrever "write" ✍️, e falar "speak" 🗣️ ajudam a descrever as atividades.</p>
+      <p>Exemplos:</p>
+      <p class="english">I like to read books 📖</p>
+      <p class="portuguese">Eu gosto de ler livros 📖</p>
+      <p class="english">She doesn't like coffee ☕</p>
+      <p class="portuguese">Ela não gosta de café ☕</p>
+    </div>
+  </div>
+  <div id="idioms" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Idioms 💡</h3>
+    </div>
+    <div class="text-content">
+      <p>"Idioms" também chamada de expressões idiomáticas, são expressões cujo significado não pode ser deduzido literalmente pelas palavras. Por exemplo, "break a leg" significa "boa sorte", não quebrar a perna.</p>
+      <p>Exemplos:</p>
+      <p class="english">A piece of cake 🍰</p>
+      <p class="portuguese">Algo muito fácil 🍰</p>
+      <p class="english">Help yourself 🤲</p>
+      <p class="portuguese">Sirva-se 🤲</p>
+    </div>
+  </div>
+  <div id="grammar" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Lição de Gramática 📖</h3>
+    </div>
+    <div class="text-content">
+      <p>Uma boa compreensão da gramática inglesa é essencial para formar frases corretas.</p>
+      <p>Dicas importantes: preste atenção aos tempos verbais, concordância entre sujeito e verbo e à estrutura da frase.</p>
+      <p>Exemplo: use "doesn't" com sujeitos singulares (He doesn't like apples 🍎).</p>
+    </div>
+  </div>
+  <div id="greetings" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Cumprimentos e Apresentações 👋</h3>
+    </div>
+    <div class="text-content">
+      <p>Aprenda expressões comuns para saudações e apresentações, como "Good morning", "How are you?" e "Nice to meet you".</p>
+      <p>Exemplos:</p>
+      <p class="english">It's good to see you 😊</p>
+      <p class="portuguese">Que bom ver você 😊</p>
+      <p class="english">How are you doing? 🤔</p>
+      <p class="portuguese">Como vai você? 🤔</p>
+      <p class="english">Have a good night 🌙</p>
+      <p class="portuguese">Tenha uma boa noite 🌙</p>
+    </div>
+  </div>
+  <div id="idioms-advanced" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Expressões Idiomáticas Avançadas 💡</h3>
+    </div>
+    <div class="text-content">
+      <p class="english">Burn the midnight oil 🕯️ - Trabalhar até tarde da noite</p>
+      <p class="english">Bite the bullet 💪 - Enfrentar algo difícil</p>
+      <p class="english">Hit the nail on the head 🔨 - Acertar em cheio</p>
+      <p class="english">Let the cat out of the bag 🐱 - Revelar um segredo</p>
+      <p class="english">Throw in the towel 🏳️ - Desistir</p>
+    </div>
+  </div>
+  <div id="verb-tenses" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Tempos Verbais ⏳</h3>
+    </div>
+    <div class="text-content">
+      <p><strong>Present Perfect:</strong> I have been to London 🏙️ - Eu estive em Londres</p>
+      <p><strong>Past Perfect:</strong> She had finished her homework before dinner 🍽️ - Ela tinha terminado a lição de casa antes do jantar</p>
+      <p><strong>Future Perfect:</strong> By next year, I will have graduated 🎓 - No próximo ano, eu terei me formado</p>
+      <p><strong>Present Continuous:</strong> They are studying for the exam 📚 - Eles estão estudando para o exame</p>
+      <p><strong>Past Continuous:</strong> I was reading when the phone rang ☎️ - Eu estava lendo quando o telefone tocou</p>
+    </div>
+  </div>
+  <div id="technical-vocabulary" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Vocabulário Técnico 💻</h3>
+    </div>
+    <div class="text-content">
+      <p class="english">Algorithm 🤖 - Algoritmo</p>
+      <p class="english">Database 🗄️ - Banco de dados</p>
+      <p class="english">Cloud Computing ☁️ - Computação em nuvem</p>
+      <p class="english">Artificial Intelligence 🧠 - Inteligência artificial</p>
+      <p class="english">Machine Learning 📈 - Aprendizado de máquina</p>
+    </div>
+  </div>
+  <div id="interrogative-words" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Palavras Interrogativas ❓</h3>
+    </div>
+    <div class="text-content">
+      <p>Essas palavras são essenciais para formular perguntas:</p>
+      <ul>
+        <li class="english">Who 👤 - Quem</li>
+        <li class="english">What 🧐 - O que</li>
+        <li class="english">When ⏰ - Quando</li>
+        <li class="english">Where 📍 - Onde</li>
+        <li class="english">Why 🤔 - Por que</li>
+        <li class="english">How 🛠️ - Como</li>
+      </ul>
+      <p>Observe que cada uma tem sua função para determinar o tipo de resposta que esperamos.</p>
+    </div>
+  </div>
+  <div id="personal-questions" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-user"></i>
+      <h3>Perguntas Pessoais 🗣️</h3>
+    </div>
+    <div class="text-content">
+      <p class="english">What is your name?</p>
+      <p class="portuguese">Qual é o seu nome?</p>
+      <p class="english">Where do you live?</p>
+      <p class="portuguese">Onde você mora?</p>
+      <p class="english">How old are you?</p>
+      <p class="portuguese">Quantos anos você tem?</p>
+      <p class="english">What do you do in your free time?</p>
+      <p class="portuguese">O que você faz no seu tempo livre?</p>
+      <p class="english">Do you have any pets?</p>
+      <p class="portuguese">Você tem algum animal de estimação?</p>
+    </div>
+  </div>
+  <div id="irregular-verbs" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3>Verbos Irregulares 🚀</h3>
+    </div>
+    <div class="text-content">
+      <p>Os verbos irregulares não seguem as regras comuns de conjugação. Exemplos incluem "go" (went), "have" (had) e "be" (was/were).</p>
+      <p>Exemplos:</p>
+      <p class="english">I went to the store yesterday 🏬</p>
+      <p class="portuguese">Eu fui à loja ontem 🏬</p>
+      <p class="english">She had a great time at the party 🎉</p>
+      <p class="portuguese">Ela se divertiu muito na festa 🎉</p>
+    </div>
+  </div>
+  <div id="agile-methods" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-project-diagram"></i>
+      <h3>Métodos Ágeis 🚀</h3>
+    </div>
+    <div class="text-content">
+      <p>Métodos ágeis são abordagens para gestão e desenvolvimento de projetos que valorizam colaboração, flexibilidade e entregas rápidas.</p>
+      <p class="english"><strong>Scrum</strong> 🏉 - An agile framework that divides work into cycles called <em>sprints</em>.</p>
+      <p class="portuguese"><strong>Scrum</strong> 🏉 - Um framework ágil que divide o trabalho em ciclos chamados <em>sprints</em>.</p>
+      <p class="english"><strong>Kanban</strong> 🗂️ - A visual method for managing tasks using boards and cards.</p>
+      <p class="portuguese"><strong>Kanban</strong> 🗂️ - Um método visual para gerenciar tarefas usando quadros e cartões.</p>
+      <p class="english"><strong>Daily Stand-up</strong> ⏰ - A quick daily meeting to align the team.</p>
+      <p class="portuguese"><strong>Daily Stand-up</strong> ⏰ - Reunião diária rápida para alinhar o time.</p>
+      <p class="english"><strong>Product Backlog</strong> 📋 - Prioritized list of everything that needs to be done in the project.</p>
+      <p class="portuguese"><strong>Product Backlog</strong> 📋 - Lista priorizada de tudo que deve ser feito no projeto.</p>
+      <p class="english"><strong>Sprint Retrospective</strong> 🔄 - Meeting to reflect and improve the process after each sprint.</p>
+      <p class="portuguese"><strong>Sprint Retrospective</strong> 🔄 - Reunião para refletir e melhorar o processo após cada sprint.</p>
+      <p class="english"><strong>Agile Manifesto</strong> 📜 - Values and principles for agile software development.</p>
+      <p class="portuguese"><strong>Manifesto Ágil</strong> 📜 - Valores e princípios para desenvolvimento ágil de software.</p>
+    </div>
+  </div>
+  <div id="conversation" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-comments"></i>
+      <h3>Conversação 🗨️</h3>
+    </div>
+    <div class="text-content">
+      <p class="english">How are you today? 😊</p>
+      <p class="portuguese">Como você está hoje? 😊</p>
+      <p class="english">Can you help me, please?</p>
+      <p class="portuguese">Você pode me ajudar, por favor?</p>
+      <p class="english">What do you like to do for fun?</p>
+      <p class="portuguese">O que você gosta de fazer para se divertir?</p>
+      <p class="english">Could you repeat that, please?</p>
+      <p class="portuguese">Você pode repetir, por favor?</p>
+      <p class="english">I didn't understand. Can you explain?</p>
+      <p class="portuguese">Eu não entendi. Você pode explicar?</p>
+    </div>
+  </div>
+  <div id="greetings" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-handshake"></i>
+      <h3>Saudações 👋</h3>
+    </div>
+    <div class="text-content">
+      <p class="english">Hello! How are you?</p>
+      <p class="portuguese">Olá! Como você está?</p>
+      <p class="english">Good morning!</p>
+      <p class="portuguese">Bom dia!</p>
+      <p class="english">Good night!</p>
+      <p class="portuguese">Boa noite!</p>
+      <p class="english">See you later!</p>
+      <p class="portuguese">Até mais!</p>
+    </div>
+  </div>
+  <div id="politeness" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-smile"></i>
+      <h3>Pedidos e Cortesia 🙏</h3>
+    </div>
+    <div class="text-content">
+      <p class="english">Can you help me, please?</p>
+      <p class="portuguese">Você pode me ajudar, por favor?</p>
+      <p class="english">Thank you very much!</p>
+      <p class="portuguese">Muito obrigado!</p>
+      <p class="english">You're welcome!</p>
+      <p class="portuguese">De nada!</p>
+      <p class="english">Excuse me, where is the bathroom?</p>
+      <p class="portuguese">Com licença, onde fica o banheiro?</p>
+    </div>
+  </div>
+  <div id="daily-routine" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-calendar-day"></i>
+      <h3>Dia a Dia 🏠</h3>
+    </div>
+    <div class="text-content">
+      <p class="english">I wake up at 7 a.m.</p>
+      <p class="portuguese">Eu acordo às 7 da manhã.</p>
+      <p class="english">I go to work by bus.</p>
+      <p class="portuguese">Eu vou para o trabalho de ônibus.</p>
+      <p class="english">I have lunch at noon.</p>
+      <p class="portuguese">Eu almoço ao meio-dia.</p>
+      <p class="english">I like to watch TV in the evening.</p>
+      <p class="portuguese">Eu gosto de assistir TV à noite.</p>
+      <p class="english">I go to bed at 10 p.m.</p>
+      <p class="portuguese">Eu vou dormir às 22h.</p>
+    </div>
+  </div>
+  <div id="more-questions" class="text-card animate-in">
+    <div class="text-header">
+      <i class="fas fa-star"></i>
+      <h3> Perguntas 🗣️</h3>
+    </div>
+    <div class="text-content">
+      <p>Abaixo, veja exemplos de perguntas comuns com suas traduções:</p>
+      <p class="english">What is your favorite food? 🍔</p>
+      <p class="portuguese">Qual é a sua comida favorita? 🍔</p>
+      <p class="english">When did you start learning English? 📅</p>
+      <p class="portuguese">Quando você começou a aprender inglês? 📅</p>
+      <p class="english">How often do you practice speaking? 🗣️</p>
+      <p class="portuguese">Com que frequência você pratica falar? 🗣️</p>
+      <p class="english">Who is your role model? 🌟</p>
+      <p class="portuguese">Quem é o seu ídolo? 🌟</p>
+      <p class="english">What do you do in your free time? 🕒</p>
+      <p class="portuguese">O que você faz no seu tempo livre? 🕒</p>
+      <p class="english">Where do you live? 🏠</p>
+      <p class="portuguese">Onde você mora? 🏠</p>
+      <p class="english">Why are you learning English? 🤔</p>
+      <p class="portuguese">Por que você está aprendendo inglês? 🤔</p>
+      <p class="english">Do you have any pets? 🐶</p>
+      <p class="portuguese">Você tem algum animal de estimação? 🐶</p>
+      <p class="english">What is your favorite movie? 🎬</p>
+      <p class="portuguese">Qual é o seu filme favorito? 🎬</p>
+      <p class="english">How do you get to school or work? 🚗</p>
+      <p class="portuguese">Como você vai para a escola ou trabalho? 🚗</p>
+      <p class="english">What time do you usually wake up? ⏰</p>
+      <p class="portuguese">Que horas você costuma acordar? ⏰</p>
+      <p class="english">Have you ever traveled abroad? ✈️</p>
+      <p class="portuguese">Você já viajou para o exterior? ✈️</p>
+    </div>
+  </div>
+</div>
+
+<div id="ranking-container" class="ranking-container" style="display:none;">
+  <button class="back-button" id="backButtonRanking">
+    <i class="fas fa-arrow-left"></i> Voltar ao Menu
+  </button>
+  <h2 class="ranking-title"><i class="fas fa-trophy"></i> Ranking</h2>
+  <div class="podium">
+  <div class="podium-item first-place">
+    <div class="podium-rank">🥇</div>
+    <div class="podium-photo shine">
+      <img src="images/default.png" alt="Avatar" class="ranking-photo" id="top-1-photo" />
+    </div>
+    <div class="podium-details">
+      <span id="top-1-name" class="podium-name">1º Lugar</span>
+      <span id="top-1-score" class="podium-score">0 pontos</span>
+      <span id="top-1-time" class="podium-time">0s</span>
+    </div>
+  </div>
+  <div class="podium-item second-place">
+    <div class="podium-rank">🥈</div>
+    <div class="podium-photo">
+      <img src="images/default.png" alt="Avatar" class="ranking-photo" id="top-2-photo" />
+    </div>
+    <div class="podium-details">
+      <span id="top-2-name" class="podium-name">2º Lugar</span>
+      <span id="top-2-score" class="podium-score">0 pontos</span>
+      <span id="top-2-time" class="podium-time">0s</span>
+    </div>
+  </div>
+  <div class="podium-item third-place">
+    <div class="podium-rank">🥉</div>
+    <div class="podium-photo">
+      <img src="images/default.png" alt="Avatar" class="ranking-photo" id="top-3-photo" />
+    </div>
+    <div class="podium-details">
+      <span id="top-3-name" class="podium-name">3º Lugar</span>
+      <span id="top-3-score" class="podium-score">0 pontos</span>
+      <span id="top-3-time" class="podium-time">0s</span>
+    </div>
+  </div>
+</div>
+  <ul id="ranking-list" class="ranking-list">
+    <li class="ranking-item">
+      <div class="ranking-photo">
+        <img src="images/default.png" alt="Avatar" />
+      </div>
+      <div class="ranking-details">
+        <span class="ranking-name">Nome do Jogador</span>
+        <span class="ranking-score-time">0 pontos - 0s</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div id="end-screen" class="end-screen" style="display:none;">
+  <button class="back-button" id="backButtonEndScreen">
+    <i class="fas fa-arrow-left"></i> Voltar ao Menu
+  </button>
+  <p id="final-message"></p>
+  <ul id="error-list"></ul>
+  <p id="motivational-message" style="display:none; font-weight:bold; margin-top:16px;"></p>
+  <button id="restart-button" class="restart-button">
+    <i class="fas fa-sync-alt"></i> Reiniciar Quiz
+  </button>
+</div>
+
+<div id="perguntas-end-screen" class="end-screen" style="display:none;">
+  <button class="back-button" id="backButtonPerguntasEndScreen">
+    <i class="fas fa-arrow-left"></i> Voltar ao Menu
+  </button>
+  <p id="perguntas-final-message"></p>
+  <ul id="perguntas-error-list"></ul>
+  <p id="motivational-message" style="display:none; font-weight:bold; margin-top:16px;"></p>
+  <button id="perguntas-restart-button" class="restart-button">
+    <i class="fas fa-sync-alt"></i> Tentar Novamente
+  </button>
+  <button id="perguntas-menu-button" class="restart-button">
+    <i class="fas fa-home"></i> Menu Principal
+  </button>
+</div>
+
+<div id="profile-container" class="profile-container" style="display:none;">
+  <button class="back-button" id="backButtonProfile">
+    <i class="fas fa-arrow-left"></i> Voltar ao Menu
+  </button>
+  <h2>Seu Perfil</h2>
+  <div class="profile-info">
+    <img id="profile-photo" src="images/default.png" alt="Foto de Perfil" class="profile-photo"/>
+    <p><strong>Nome:</strong> <span id="profile-name"></span></p>
+    <p><strong>Pontuação:</strong> <span id="profile-score">0</span></p>
+  </div>
+  <h3>Escolha sua Foto de Perfil</h3>
+  <div class="avatar-options">
+  <div class="avatar-option-container">
+    <img src="images/avatar0.png" class="avatar-option" data-avatar="images/avatar0.png" alt="Avatar 0"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar1.png" class="avatar-option" data-avatar="images/avatar1.png" alt="Avatar 1"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar2.png" class="avatar-option" data-avatar="images/avatar2.png" alt="Avatar 2"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar3.png" class="avatar-option" data-avatar="images/avatar3.png" alt="Avatar 3"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar4.png" class="avatar-option" data-avatar="images/avatar4.png" alt="Avatar 4"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar5.png" class="avatar-option" data-avatar="images/avatar5.png" alt="Avatar 5"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar6.png" class="avatar-option" data-avatar="images/avatar6.png" alt="Avatar 6"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar7.png" class="avatar-option" data-avatar="images/avatar7.png" alt="Avatar 7"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar8.png" class="avatar-option" data-avatar="images/avatar8.png" alt="Avatar 8"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar9.png" class="avatar-option" data-avatar="images/avatar9.png" alt="Avatar 9"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar10.png" class="avatar-option" data-avatar="images/avatar10.png" alt="Avatar 10"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar11.png" class="avatar-option" data-avatar="images/avatar11.png" alt="Avatar 11"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar12.png" class="avatar-option" data-avatar="images/avatar12.png" alt="Avatar 12"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar13.png" class="avatar-option" data-avatar="images/avatar13.png" alt="Avatar 13"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar14.png" class="avatar-option" data-avatar="images/avatar14.png" alt="Avatar 14"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar15.png" class="avatar-option" data-avatar="images/avatar15.png" alt="Avatar 15"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar16.png" class="avatar-option" data-avatar="images/avatar16.png" alt="Avatar 16"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar17.png" class="avatar-option" data-avatar="images/avatar17.png" alt="Avatar 17"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar18.png" class="avatar-option" data-avatar="images/avatar18.png" alt="Avatar 18"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar19.png" class="avatar-option" data-avatar="images/avatar19.png" alt="Avatar 19"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar20.png" class="avatar-option" data-avatar="images/avatar20.png" alt="Avatar 20"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/gif21.gif" class="avatar-option" data-avatar="images/gif21.gif" alt="Avatar 21"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar22.png" class="avatar-option" data-avatar="images/avatar22.png" alt="Avatar 22"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar23.png" class="avatar-option" data-avatar="images/avatar23.png" alt="Avatar 23"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar24.png" class="avatar-option" data-avatar="images/avatar24.png" alt="Avatar 24"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar25.png" class="avatar-option" data-avatar="images/avatar25.png" alt="Avatar 25"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar26.png" class="avatar-option" data-avatar="images/avatar26.png" alt="Avatar 26"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar27.png" class="avatar-option" data-avatar="images/avatar27.png" alt="Avatar 27"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar28.png" class="avatar-option" data-avatar="images/avatar28.png" alt="Avatar 28"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar29.png" class="avatar-option" data-avatar="images/avatar29.png" alt="Avatar 29"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar30.png" class="avatar-option" data-avatar="images/avatar30.png" alt="Avatar 30"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar31.png" class="avatar-option" data-avatar="images/avatar31.png" alt="Avatar 31"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar32.png" class="avatar-option" data-avatar="images/avatar32.png" alt="Avatar 32"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar33.png" class="avatar-option" data-avatar="images/avatar33.png" alt="Avatar 33"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar34.png" class="avatar-option" data-avatar="images/avatar34.png" alt="Avatar 34"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar35.png" class="avatar-option" data-avatar="images/avatar35.png" alt="Avatar 35"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar36.png" class="avatar-option" data-avatar="images/avatar36.png" alt="Avatar 36"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar37.png" class="avatar-option" data-avatar="images/avatar37.png" alt="Avatar 37"/>
+  </div>
+  <div class="avatar-option-container">
+    <img src="images/avatar38.png" class="avatar-option" data-avatar="images/avatar38.png" alt="Avatar 38"/>
+  </div></div>
+</div>
+</div>
+
+<div id="quiz-warning-container" style="display: none;">
+  <p id="quiz-warning-message">Você já realizou este quiz. Você só pode fazê-lo uma vez.</p>
+  <button id="quiz-warning-back-button">Voltar ao Menu</button>
+</div>
+
+<div id="exercises-container" style="display: none;">
+  <h2>Exercícios</h2>
+  <p id="exercise-question"></p>
+  <input type="text" id="exercise-input" placeholder="Digite sua resposta aqui" />
+  <button id="exercise-submit">Enviar</button>
+  <p id="exercise-feedback"></p>
+  <div id="correct-answers-container" style="margin-top: 20px;">
+    <h3>Exercícios Acertados</h3>
+    <div id="correct-answers-list"></div>
+  </div>
+  <button id="backButtonExercises">Voltar ao Menu</button>
+</div>
+
+<div id="first-time-popup" class="popup" style="display: none;">
+  <div class="popup-content">
+    <h2>Bem-vindo ao Speak Easy!</h2>
+    <p>Gostaríamos de conhecer você melhor. Deseja escolher seu avatar agora?</p>
+    <button id="go-to-profile">Ir para o Perfil</button>
+    <button id="skip-profile">Depois</button>
+  </div>
+</div>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
